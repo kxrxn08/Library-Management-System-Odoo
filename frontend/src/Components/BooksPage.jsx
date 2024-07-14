@@ -8,6 +8,9 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 
+// import jwt_decode from 'jwt-decode';
+
+
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 const BooksPage = () => {
@@ -17,25 +20,30 @@ const BooksPage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [favouriteList,setFavouriteList]=useState([]);
   const navigate=useNavigate();
+  const [clickedBookData,setClickedBookData] = useState();
 
   const toggleModal = () => {
     setIsOpen(!isOpen);
   };
 
-  const Modal=(data)=>{
-    console.log(data);
+
+  const Modal = () => {
+    // console.log(data);
     return (
       <>
         <div
-          id="default-modal"
+          id="default-modal"  
           tabIndex="-1"
           aria-hidden="true"
-          className="fixed inset-0 z-50 flex justify-center items-center w-100   max-w-screen-2xl  bg-gray-900 bg-opacity-50 "
+          className="fixed inset-0 z-50 flex justify-center items-center w-100   max-w-screen-2xl  "
+          style={{
+            backgroundColor:"#e5e4f1"
+          }}
         >
           <div className="relative p-4 w-100  max-w-2xl h-100 max-h-full  bg-black rounded-lg shadow dark:bg-gray-700  overflow-y-auto h-100">
             <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                Add A new book
+                {clickedBookData.title}
               </h3>
               <button
                 type="button"
@@ -62,14 +70,26 @@ const BooksPage = () => {
             </div>
             <div className="py-4 md:p-5 space-y-4 w-100">
               <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-              Acceptance of Terms: By using OurPlatform, you agree to these terms and conditions. We may update them from time to time, and it is your responsibility to review them regularly.
-              User Conduct: You agree not to use OurPlatform for any unlawful or prohibited activities. This includes, but is not limited to, harassment, defamation, and transmission of harmful content.
+                {clickedBookData.description}
               </p>
-                <div className=" w-full px-2  bg-black rounded-lg shadow-md dark:bg-gray-700">    
-    </div>
-              <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-              We only allow one day of booking in our system.
-              </p>
+              <div className=" w-full px-2  bg-black rounded-lg shadow-md dark:bg-gray-700">
+              </div>
+              <div className='flex justify-between'>
+              <span className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                Genre : {clickedBookData.genre}
+              </span>
+              <span className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                Publisher : {clickedBookData.publisher}
+              </span>
+              </div>
+              <div className='flex justify-between'>
+              <span className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                Author : {clickedBookData.author}
+              </span>
+              <span className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                Published On : {clickedBookData.publishedYear}
+              </span>
+              </div>
             </div>
             <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
 
@@ -88,6 +108,12 @@ const BooksPage = () => {
     )
   }
 
+  useEffect(()=>{
+    // const token = localStorage.getItem("access_token");
+    // const data = jwt_decode(token);
+    // console.log(data);
+  },[])
+
   const fetchBooks = async () => {
     try {
       const response = await axios.get('http://localhost:9999/api/books/getbooks');
@@ -104,15 +130,15 @@ const BooksPage = () => {
   }, [])
 
   useEffect(() => {
-    axios.get(`http://localhost:9999/api/books/searchbar/${booksSearch}`).then((data)=>{
+    axios.get(`http://localhost:9999/api/books/searchbar/${booksSearch}`).then((data) => {
       setBooksList(data.data.data);
       console.log(data.data.data);
-    }).catch((err)=>{
+    }).catch((err) => {
       console.log(err);
-      
+
     })
-    if(booksSearch==''){
-     fetchBooks(); 
+    if (booksSearch == '') {
+      fetchBooks();
     }
   }, [booksSearch])
 
@@ -132,7 +158,7 @@ const BooksPage = () => {
   }
   return (
     <>
-  <Stack flexGrow={1} direction="column" padding={3} sx={{width:"80vw",margin:"auto"}} >
+      <Stack flexGrow={1} direction="column" padding={3} sx={{ width: "80vw", margin: "auto" }} >
         <Box display="flex" justifyContent="center" alignItems="center" sx={{
           paddingY: "15px"
         }}>
@@ -155,17 +181,17 @@ const BooksPage = () => {
             return (
               <Grid item sm={6} key={index}>
                 <Card sx={{
-                  minHeight:"200px",
-                  maxHeight:"200px",
+                  minHeight: "200px",
+                  maxHeight: "200px",
                 }} variant='' >
                   <Grid container>
                     <Grid item xs={12} md={4} className='flex items-center justify-center'>
                       <CardContent className='flex items-center justify-center'>
                         <img alt='book image' src={book.imageLinks?.thumbnail} style={{
-                          maxHeight:"155px"
-                        }} onClick={()=>{setIsOpen(true)}}  />
+                          maxHeight: "155px"
+                        }} onClick={() => { setIsOpen(true);console.log(book);setClickedBookData(book) }} />
                       </CardContent>
-                      {isOpen && <Modal data={book}/>}
+                      {isOpen && <Modal />}
                     </Grid>
                     <Grid item xs={12} md={8} className='md:border-is border-bs md:border-bs-0'>
                       <CardContent>
@@ -173,9 +199,9 @@ const BooksPage = () => {
                           {book.title}
                         </Typography>
                         <Typography sx={{
-                          paddingTop:"15px"
+                          paddingTop: "15px"
                         }}>
-                          {book?.author} - {book.genre == "" ? "genre": book?.genre} 
+                          {book?.author} • {book.genre == "" ? "genre" : book?.genre} • {book.publishedYear?.split("-")[0]}
                         </Typography>
                         <Typography className='mbe-2' sx={{
                           fontSize: 14,

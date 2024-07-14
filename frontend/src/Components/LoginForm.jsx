@@ -28,8 +28,9 @@ const LoginForm = () => {
             console.log(data);
             localStorage.setItem("access_token",data.data.userToken);
             setError(null);
+
             navigate("/");
-            window.location.reload();
+            // window.location.reload();
           }).catch((err)=>{
             console.log(err);
             setError(err?.response?.data?.message);
@@ -46,16 +47,19 @@ const LoginForm = () => {
     }
     return (
         <>
-            <div class="min-h-screen flex items-center justify-center bg-gray-100">
+            <div class="min-h-screen flex items-center justify-center "
+            style={{
+                backgroundColor:"#e5e4f1"
+            }}>
                 <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 max-w-lg w-full">
                     {
                         error && <Alert/>
                     }
                     <form class="w-full">
-                        <h1 class="text-center text-2xl font-bold mb-8">Login to Your Account</h1>  {/* Updated title */}
+                        <h1 class="text-center text-2xl font-bold mb-8" style={{color:"#704b66"}}>Login to Your Account</h1>  {/* Updated title */}
                         <div class="flex flex-wrap -mx-3 mb-6">
                             <div class="w-full px-3">
-                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 text-left" for="email">
+                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 text-left" for="email" style={{color:"#704b66"}}>
                                     Email
                                 </label>
                                 <input
@@ -70,7 +74,7 @@ const LoginForm = () => {
                         </div>
                         <div class="flex flex-wrap -mx-3 mb-6">
                             <div class="w-full px-3">
-                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 text-left" for="password">
+                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 text-left" for="password" style={{color:"#704b66"}}>
                                     Password
                                 </label>
                                 <input
@@ -84,15 +88,21 @@ const LoginForm = () => {
                             </div>
                         </div>
                         <div className='flex gap-4 '>
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" 
+                        <button class="hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" 
                         onClick={handleSubmit}
+                        style={{
+                            backgroundColor:"#704b66"
+                        }}
                         >
                             Login
                         </button>
-                        <button  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button"
-                        onClick={changeURL}>
+                        {/* <button  class="hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button"
+                        onClick={changeURL}
+                        style={{
+                            backgroundColor:"#704b66"
+                        }}>
                             SignUp
-                        </button>
+                        </button> */}
                         </div>
                     </form>
                 </div>

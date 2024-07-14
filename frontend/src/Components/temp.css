@@ -1,0 +1,89 @@
+/* src/Components/BooksPage.css */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+  }
+  
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .parent {
+    width: 800px;
+    height: 700px;
+    background-color: #e5e4f1;
+    /* border: 2px solid red; */
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    padding: 20px;
+  }
+  
+  .parentHeading {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    gap: 10px;
+    align-self: center;
+    flex-direction: column;
+  }
+  
+  .childHeading h1 {
+    text-align: center;
+    background: #704b66;
+    color: white;
+    padding: 10px;
+  }
+  
+  .bookOverview {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+  }
+  
+  .bookCard {
+    width: 400px;
+    padding: 10px;
+  }
+  
+  .imageDiv {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .imageDiv img {
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+    object-fit: contain;
+  }
+  
+  .imageMultiple {
+    display: flex;
+    width: 100%;
+    border: 1px solid red;
+    background-image: url('https://bookbins.in/wp-content/uploads/2024/04/The-Theory-Of-Everything-Stephen-W-Hawking-Buy-Online-Bookbins-1.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+  }
+
+  
+  .mb {
+    margin-bottom: 20px;
+  }
+  
+  .imageBody h3 {
+    margin-top: 10px;
+  }
+  
+  .imageBody p {
+    margin-top: 10px;
+    text-align: justify;
+  }
+  
