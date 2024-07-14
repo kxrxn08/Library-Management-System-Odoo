@@ -9,8 +9,8 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
-import CardMedia from '@mui/material/CardMedia';
-import IconButton from '@mui/material/IconButton'
+// import CardMedia from '@mui/material/CardMedia';
+// import IconButton from '@mui/material/IconButton'
 
 import axios from 'axios';
 const BooksPage = () => {
@@ -35,15 +35,6 @@ const BooksPage = () => {
   useEffect(() => {
 
   }, [booksSearch])
-
-  const bull = (
-    <Box
-      component="span"
-      sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-    >
-      •
-    </Box>
-  );
 
   return (
     <>
@@ -88,7 +79,7 @@ const BooksPage = () => {
                         <Typography sx={{
                           paddingTop:"15px"
                         }}>
-                          {book?.author} - {book.genre == "" ? "genre": book?.genre} 
+                          {book?.author} • {book.genre == "" ? "genre": book?.genre} • {book.publishedYear?.split("-")[0]}
                         </Typography>
                         <Typography className='mbe-2' sx={{
                           fontSize: 14,
