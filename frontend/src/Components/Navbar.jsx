@@ -38,7 +38,7 @@ var [name, setName] = useState("");
     navigate("/login");
   }
   return (
-    <nav className="bg-gray-800">
+    <nav className="bg-white">
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
         <div className="relative flex items-center justify-between h-16">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -63,7 +63,7 @@ var [name, setName] = useState("");
           </div>
           <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex-shrink-0 mt-1">
-            <a href="/" className="hover:bg-gray-700 text-lg font-bold text-white px-3 py-2  ">
+            <a href="/" className="hover:bg-gray-700 text-lg font-bold text-dark px-3 py-2  ">
               Public Library
             </a>
             </div>
@@ -100,7 +100,7 @@ var [name, setName] = useState("");
               </button>: 
               <button
               type="button"
-                className="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-white bg-white py-2 px-4 capitalize font-semibold"
+                className="flex text-sm border-2 border-transparent border-3 border-red-800 rounded-lg  focus:outline-none focus:border-white bg-red-300 py-2 px-4 capitalize font-semibold "
                 onClick={navigateToLogin}
               >
                 Login

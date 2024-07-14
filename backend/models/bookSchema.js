@@ -12,7 +12,7 @@ const bookSchema=new Schema({
         type:String
     },
     author:{
-        type:Object
+        type:Array
     },
     publisher:{
         type:String
@@ -21,7 +21,7 @@ const bookSchema=new Schema({
         type:String
     },
     genre:{
-        type:String
+        type:Array
     },
     description:{
         type:String
@@ -30,7 +30,7 @@ const bookSchema=new Schema({
         type:Number
     },
     available:{
-        type:Number
+        type:Number,
     },
     imageLinks:{
         type:Object
