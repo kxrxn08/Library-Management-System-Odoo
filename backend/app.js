@@ -6,6 +6,7 @@ const mongoose = require('mongoose')
 const bodyParser = require('body-parser');
 const userRoutes=require("./routes/userRoutes");
 const appointmentRoutes=require("./routes/appointmentRoutes")
+const bookRoutes=require("./routes/bookRoutes");
 const allowedOrigins = [
   '*',
 ];
@@ -24,7 +25,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use("/api/user",userRoutes);
 app.use("/api/appointments",appointmentRoutes);
-
+app.use("/api/books",bookRoutes);
 const PORT = 9999;
 const server = app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
