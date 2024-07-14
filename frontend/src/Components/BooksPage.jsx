@@ -4,50 +4,118 @@ import React, { useEffect, useState } from 'react'
 import SearchIcon from '@mui/icons-material/Search';
 import { Box, TextField, InputAdornment } from '@mui/material';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
-import CardMedia from '@mui/material/CardMedia';
-import IconButton from '@mui/material/IconButton'
 
 import axios from 'axios';
 const BooksPage = () => {
 
-  const [booksList, setBooksList] = useState([1, 2]);
-
+  const [booksList, setBooksList] = useState([]);
   const [booksSearch, setBooksSearch] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
 
+  const toggleModal = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const Modal=(data)=>{
+    console.log(data);
+    return (
+      <>
+        <div
+          id="default-modal"
+          tabIndex="-1"
+          aria-hidden="true"
+          className="fixed inset-0 z-50 flex justify-center items-center w-100   max-w-screen-2xl  bg-gray-900 bg-opacity-50 "
+        >
+          <div className="relative p-4 w-100  max-w-2xl h-100 max-h-full  bg-black rounded-lg shadow dark:bg-gray-700  overflow-y-auto h-100">
+            <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                Add A new book
+              </h3>
+              <button
+                type="button"
+                className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                onClick={toggleModal}
+              >
+                <svg
+                  className="w-3 h-3"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 14 14"
+                >
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+                  />
+                </svg>
+                <span className="sr-only">Close modal</span>
+              </button>
+            </div>
+            <div className="py-4 md:p-5 space-y-4 w-100">
+              <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+              Acceptance of Terms: By using OurPlatform, you agree to these terms and conditions. We may update them from time to time, and it is your responsibility to review them regularly.
+              User Conduct: You agree not to use OurPlatform for any unlawful or prohibited activities. This includes, but is not limited to, harassment, defamation, and transmission of harmful content.
+              </p>
+                <div className=" w-full px-2  bg-black rounded-lg shadow-md dark:bg-gray-700">    
+    </div>
+              <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+              We only allow one day of booking in our system.
+              </p>
+            </div>
+            <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+
+              <button
+                type="button"
+                className="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-black rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                onClick={toggleModal}
+              >
+                Decline
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </>
+    )
+  }
+
+  const fetchBooks = async () => {
+    try {
+      const response = await axios.get('http://localhost:9999/api/books/getbooks');
+      console.log(response.data);
+      setBooksList(response.data.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   useEffect(() => {
-    const fetchBooks = async () => {
-      try {
-        const response = await axios.get('http://localhost:9999/api/books/getbooks');
-        console.log(response.data);
-        setBooksList(response.data.data);
-      } catch (err) {
-      }
-    };
 
     fetchBooks();
   }, [])
 
   useEffect(() => {
-
+    axios.get(`http://localhost:9999/api/books/searchbar/${booksSearch}`).then((data)=>{
+      setBooksList(data.data.data);
+      console.log(data.data.data);
+    }).catch((err)=>{
+      console.log(err);
+      
+    })
+    if(booksSearch==''){
+     fetchBooks(); 
+    }
   }, [booksSearch])
 
-  const bull = (
-    <Box
-      component="span"
-      sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-    >
-      •
-    </Box>
-  );
 
   return (
     <>
-      <Stack flexGrow={1} direction="column" padding={3}>
+  <Stack flexGrow={1} direction="column" padding={3} sx={{width:"80vw",margin:"auto"}} >
         <Box display="flex" justifyContent="center" alignItems="center" sx={{
           paddingY: "15px"
         }}>
@@ -64,25 +132,27 @@ const BooksPage = () => {
               ),
             }} />
         </Box>
-        <Grid container spacing={5}>
+        
+        <Grid container spacing={5} key={1}>
           {booksList?.map((book, index) => {
             return (
               <Grid item sm={6} key={index}>
                 <Card sx={{
                   minHeight:"200px",
                   maxHeight:"200px",
-                }}>
+                }} variant='' >
                   <Grid container>
                     <Grid item xs={12} md={4} className='flex items-center justify-center'>
                       <CardContent className='flex items-center justify-center'>
                         <img alt='book image' src={book.imageLinks?.thumbnail} style={{
                           maxHeight:"155px"
-                        }} />
+                        }} onClick={()=>{setIsOpen(true)}}  />
                       </CardContent>
+                      {isOpen && <Modal data={book}/>}
                     </Grid>
                     <Grid item xs={12} md={8} className='md:border-is border-bs md:border-bs-0'>
                       <CardContent>
-                        <Typography variant='h5' className='mbe-2'>
+                        <Typography variant='hs' className='mbe-2 text-ellipsis  overflow-hidden'>
                           {book.title}
                         </Typography>
                         <Typography sx={{
@@ -102,11 +172,10 @@ const BooksPage = () => {
                         }}>
                           {book.description}
                         </Typography>
-                        
+                        <button className='px-3 py-2 rounded-lg bg-green-700 text-white my-2 align-items-center'>
+                          Borrow 
+                        </button>
                       </CardContent>
-                      {/* <CardActions className='justify-between card-actions-dense'>
-                        <Button startIcon={<i className='ri-shopping-cart-2-line' />}>Add to Cart</Button>
-                      </CardActions> */}
                     </Grid>
                   </Grid>
                 </Card>
@@ -114,6 +183,7 @@ const BooksPage = () => {
             )
           })}
         </Grid>
+
       </Stack>
     </>
   )

@@ -63,7 +63,7 @@ var [name, setName] = useState("");
           </div>
           <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex-shrink-0 mt-1">
-            <a href="/" className="hover:bg-gray-700 text-lg font-bold text-dark px-3 py-2  ">
+            <a href="/" className="text-lg font-bold text-dark px-3 py-2  ">
               Public Library
             </a>
             </div>
@@ -95,7 +95,7 @@ var [name, setName] = useState("");
                   alt="User avatar"
                   />
                 
-                {name && <h1 className='text-white mt-2'>{name}</h1>}
+                {name && <h1 className='text-black mt-2'>{name}</h1>}
                   </div> 
               </button>: 
               <button

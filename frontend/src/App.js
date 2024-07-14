@@ -11,7 +11,7 @@ function App() {
       <Navbar/>
       <Routes>
         <Route path='/login' element={<LoginForm/>} />
-        <Route path='/booksPage' element={<BooksPage/>}/>
+        <Route path='/' element={<BooksPage/>}/>
         <Route path='/admin' element={<Admin/>} />
         </Routes>
     </BrowserRouter>    
