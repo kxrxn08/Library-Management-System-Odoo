@@ -1,3 +1,20 @@
-.modalHeight{
-    height: 100vh;   
+#default-modal {
+    background-color: #e5e4f1;
+    width: 100%;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+
+#default-modal::-webkit-scrollbar {
+    width: 10px;
+}
+
+#default-modal::-webkit-scrollbar-thumb {
+    background: #e5e4f1;
+    border-radius: 10px;
+}
+
+#default-modal::-webkit-scrollbar-thumb:hover {
+    background: #837dc7;
 }

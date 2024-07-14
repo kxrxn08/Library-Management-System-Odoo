@@ -63,7 +63,8 @@ var [name, setName] = useState("");
           </div>
           <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex-shrink-0 mt-1">
-            <a href="/" className="hover:bg-gray-700 text-lg font-bold text-dark px-3 py-2  ">
+            <a href="/" className="text-lg font-bold text-dark px-3 py-2  " style={{color:"#704b66"}}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" id="book" style={{float:"left"}}><g stroke="#586597" stroke-width=".741" transform="matrix(.67489 0 0 .675 -.192 -677.808)"><path fill="#ffb1b1" fill-rule="evenodd" stroke="none" d="m 3.9933487,1016.0103 23.7017423,-8.1481 16.294947,23.7036 -23.701741,8.1482 z"></path><path fill="#d1edf1" fill-rule="evenodd" stroke="none" d="m 20.292314,1047.8621 v -8.1481 l 21.85543,-7.4074 v 8.1481 z"></path><path fill="#ff9793" fill-rule="evenodd" stroke="none" d="m 20.288297,1039.714 v 8.1481 L 3.9933487,1024.1585 v -8.1482 z"></path><path fill="none" stroke-width="1.482" d="m 42.147744,1032.3066 v 8.1481"></path><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.482" d="M20.634478 1043.6569l5.327046-1.8094 2.663523-.9048 2.663523-.9047M33.952092 1039.1333l.33294-.1131M36.615615 1038.2285l1.331762-.4523 1.331761-.4524 2.663523-.9047"></path><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.482" d="M43.990038 1039.714l-23.701741 8.1481-16.2949483-23.7036v-8.1482l23.7017423-8.1481 16.294947 23.7036-23.701741 8.1482M4.2456066 1016.2122l5.4316289 7.9584M11.158589 1026.3411l.987568 1.447M13.62751 1029.9586l6.419197 9.4054"></path><path fill="none" stroke-width="1.482" d="m 20.292314,1039.714 v 8.1481"></path></g></svg>
               Public Library
             </a>
             </div>
@@ -95,7 +96,7 @@ var [name, setName] = useState("");
                   alt="User avatar"
                   />
                 
-                {name && <h1 className='text-white mt-2'>{name}</h1>}
+                {name && <h1 className='text-black mt-2'>{name}</h1>}
                   </div> 
               </button>: 
               <button

@@ -44,3 +44,22 @@ module.exports.getAllBooks=(async (req,res)=>{
         res.status(500).json({ message: "Internal Server Error",error:error })
     }
 })
+
+
+module.exports.searchBook=(async (req,res)=>{
+    try{
+        var typed = req.params.typed
+        var titles=await bookSchema.distinct('title',{title:{$regex:`${typed}`,$options:'i'}}).exec()
+        const books = await bookSchema.find({ title: { $in: titles } }).exec();
+        if(books.length>0){
+            res.status(200).json({message:"fetch the book",data:books});
+        }
+        else{
+            res.status(404).json({message:"No Data found",data:books});
+        }
+    }
+    catch (error) {
+        console.log(error)
+        res.status(500).json({ message: "Internal Server Error",error:error })
+    }
+})
