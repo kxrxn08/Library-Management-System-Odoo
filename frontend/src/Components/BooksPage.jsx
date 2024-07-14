@@ -1,6 +1,6 @@
 import { Stack } from '@mui/material';
 import React, { useEffect, useState } from 'react'
-// import {} from 
+
 import SearchIcon from '@mui/icons-material/Search';
 import { Box, TextField, InputAdornment } from '@mui/material';
 import Card from '@mui/material/Card';
@@ -9,11 +9,14 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 const BooksPage = () => {
 
   const [booksList, setBooksList] = useState([]);
   const [booksSearch, setBooksSearch] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [favouriteList,setFavouriteList]=useState([]);
+  const navigate=useNavigate();
 
   const toggleModal = () => {
     setIsOpen(!isOpen);
@@ -95,7 +98,8 @@ const BooksPage = () => {
     }
   };
   useEffect(() => {
-
+    // window.localStorage.setItem("favouriteList",0);
+    // setFavouriteList(Array(window.localStorage.getItem("favouriteList")));
     fetchBooks();
   }, [])
 
@@ -112,7 +116,20 @@ const BooksPage = () => {
     }
   }, [booksSearch])
 
+  const addToList=(data)=>{
+    const id=data._id;
+    console.log(id);
+    setFavouriteList([...favouriteList,data]);
+    window.localStorage.setItem("favouriteList",favouriteList);
+  }
 
+  const removeFromList=(data)=>{
+    setFavouriteList(prevItems => prevItems.filter(item => item._id !== data._id));
+    window.localStorage.setItem("favouriteList",favouriteList);
+  }
+  const goToCheckout=()=>{
+    navigate("/checkout",{state:{"data":favouriteList}});
+  }
   return (
     <>
   <Stack flexGrow={1} direction="column" padding={3} sx={{width:"80vw",margin:"auto"}} >
@@ -133,7 +150,7 @@ const BooksPage = () => {
             }} />
         </Box>
         
-        <Grid container spacing={5} key={1}>
+        <Grid container spacing={5} key={1} className='pb-5'>
           {booksList?.map((book, index) => {
             return (
               <Grid item sm={6} key={index}>
@@ -172,9 +189,17 @@ const BooksPage = () => {
                         }}>
                           {book.description}
                         </Typography>
-                        <button className='px-3 py-2 rounded-lg bg-green-700 text-white my-2 align-items-center'>
-                          Borrow 
+                        {favouriteList.includes(book) ?
+                        <button className='px-3 py-2 rounded-lg bg-red-700 text-white my-2 align-items-center'
+                        onClick={()=>{removeFromList(book)}}
+                        >
+                          Remove
                         </button>
+                        : <button className='px-3 py-2 rounded-lg bg-green-700 text-white my-2 align-items-center'
+                        onClick={()=>{addToList(book)}}
+                        >
+                          Borrow
+                        </button>}
                       </CardContent>
                     </Grid>
                   </Grid>
@@ -185,6 +210,17 @@ const BooksPage = () => {
         </Grid>
 
       </Stack>
+
+      {
+        favouriteList.length>0 && 
+        <>
+          <button className='bg-gray-700 bottom-0 fixed px-4 py-3 w-100 text-center text-white'
+          onClick={goToCheckout}
+          > 
+          Proceed to Checkout  
+            </button> 
+        </>
+      }
     </>
   )
 }

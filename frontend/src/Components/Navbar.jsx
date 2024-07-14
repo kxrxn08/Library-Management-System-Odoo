@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import icon from "../Images/icon.png"
+import { FaShoppingCart } from "react-icons/fa";
+
 // from "jwt-decode" import jwtDecode as jwt_decode ;
 import {jwtDecode } from "jwt-decode"
 import { useNavigate } from 'react-router';
@@ -11,6 +13,7 @@ const Navbar = () => {
   const [token, setToken] = useState('');
 var [decode, setDecode] = useState({});
 var [name, setName] = useState("");
+const [cartItem,setCartItem]=useState();
   var decoded = null;
   const navigate=useNavigate();
   useEffect(() => {
@@ -28,7 +31,6 @@ var [name, setName] = useState("");
     // console.log("1234",Cookies.get("session"))
   }, []);
   const logout = () => {
-
     localStorage.removeItem("access_token");
     window.location.reload();
     navigate("/");
@@ -76,6 +78,14 @@ var [name, setName] = useState("");
               </div>
             </div> */}
           </div>
+          {console.log(cartItem)}
+              {token && <div className='flex gap-2'>
+                <FaShoppingCart />
+                <span>
+                  {cartItem}
+                </span>
+                </div>
+                }
           <div className="ml-3 relative">
             <div>
               {token ? <button
@@ -88,13 +98,11 @@ var [name, setName] = useState("");
               >
                 {/* <span className="sr-only">Open user menu</span> */}
                  <div className='flex gap-2 text-center p-2'>
-
                 <img
                   className="h-8 w-8 rounded-full"
                   src={icon}
                   alt="User avatar"
                   />
-                
                 {name && <h1 className='text-black mt-2'>{name}</h1>}
                   </div> 
               </button>: 

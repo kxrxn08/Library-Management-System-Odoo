@@ -5,6 +5,8 @@ import LoginForm from './Components/LoginForm';
 import BooksPage from './Components/BooksPage';
 import Admin from './Pages/Admin';
 import Navbar from './Components/Navbar';
+import Checkout from './Pages/Checkout';
+import Dashboard from "./Pages/Dashboard"
 function App() {
   return (
     <BrowserRouter>
@@ -13,6 +15,8 @@ function App() {
         <Route path='/login' element={<LoginForm/>} />
         <Route path='/' element={<BooksPage/>}/>
         <Route path='/admin' element={<Admin/>} />
+        <Route path='/checkout' element={<Checkout/>} />
+        <Route path='/dashboard' element={<Dashboard/>}/>
         </Routes>
     </BrowserRouter>    
   );

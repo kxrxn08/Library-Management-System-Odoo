@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const userRoutes=require("./routes/userRoutes");
 const appointmentRoutes=require("./routes/appointmentRoutes")
 const bookRoutes=require("./routes/bookRoutes");
+const borrowHistoryRoutes=require("./routes/borrowHistoryRoutes");
 const allowedOrigins = [
   '*',
 ];
@@ -26,6 +27,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use("/api/user",userRoutes);
 app.use("/api/appointments",appointmentRoutes);
 app.use("/api/books",bookRoutes);
+app.use("/api/borrow",borrowHistoryRoutes);
 const PORT = 9999;
 const server = app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

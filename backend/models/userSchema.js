@@ -44,6 +44,10 @@ const userSchema = new Schema({
     , tokenAdmin: {
         type: String
     },
+    history:{
+        type:Array,
+        default:[]
+    },
     passToken:{
         type:String
     },
