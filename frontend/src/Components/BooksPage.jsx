@@ -158,7 +158,7 @@ const BooksPage = () => {
                         <Typography sx={{
                           paddingTop:"15px"
                         }}>
-                          {book.publisher} - {book.publishedYear}
+                          {book?.author} - {book.genre == "" ? "genre": book?.genre} 
                         </Typography>
                         <Typography className='mbe-2' sx={{
                           fontSize: 14,
