@@ -104,13 +104,13 @@ module.exports.getUser = (async (req, res) => {
                     // var details=await generalFunctions.userDetails(req,res)
                     var userToken = jwtToken.generateToken({ email: user[0].email, fullName: user[0].firstName + " " + user[0].lastName, role: user[0].role, id: user[0]._id })
                     if (user[0].role == 'admin') {
-                        admin = await businessSchema.findOne({ userId: user[0]._id }).exec()
+                        // admin = await businessSchema.findOne({ userId: user[0]._id }).exec()
                         // console.log(admin)
-                        var adminToken = jwtToken.generateToken({ userEmail: user[0].email, adminEmail: admin.email, name: admin.ownerName, role: 'admin', city: admin.city, userId: admin.userId, adminId: admin._id })
+                        // var token=jwtToken.generateToken(user);
+                        // var adminToken = jwtToken.generateToken({ userEmail: user[0].email, adminEmail: admin.email, name: admin.ownerName, role: 'admin', city: admin.city, userId: admin.userId, adminId: admin._id })
                         // console.log(adminToken)
-                        userSchema.updateOne({ email: req.body.email }, { tokenUser: userToken, tokenAdmin: adminToken }).exec()
                         // userSchema.findOneAndUpdate({email:req.body.email},{$push:{devices:details}}).exec()
-                        res.status(200).json({ message: "User Fetched", userToken: userToken, adminToken: user[0].tokenAdmin,passToken:user[0].passToken });
+                        res.status(200).json({ message: "User Fetched", userToken: userToken});
                     }
                     else {
                         userSchema.findOneAndUpdate({email:req.body.email}).exec()
