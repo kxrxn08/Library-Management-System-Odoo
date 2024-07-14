@@ -88,7 +88,7 @@ const BooksPage = () => {
                         <Typography sx={{
                           paddingTop:"15px"
                         }}>
-                          {book.publisher} - {book.publishedYear}
+                          {book?.author} - {book.genre == "" ? "genre": book?.genre} 
                         </Typography>
                         <Typography className='mbe-2' sx={{
                           fontSize: 14,
@@ -104,9 +104,9 @@ const BooksPage = () => {
                         </Typography>
                         
                       </CardContent>
-                      {/* <CardActions className='justify-between card-actions-dense'>
+                      <CardActions className='justify-between card-actions-dense'>
                         <Button startIcon={<i className='ri-shopping-cart-2-line' />}>Add to Cart</Button>
-                      </CardActions> */}
+                      </CardActions>
                     </Grid>
                   </Grid>
                 </Card>
